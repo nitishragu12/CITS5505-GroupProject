@@ -1,13 +1,12 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>Login</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
 </head>
-<body>
+<body class="container">
 
-<h2>Login Form</h2>
+<h2>Home</h2>
 <p>Our app offers a convenient platform where users can request a wide range of services, from household chores to gardening, cleaning, homework assistance, and even website building. Users can post their requests and either get the work done by service providers or offer payment to fulfill the requests. It's a one-stop solution for all your service needs, connecting people who need tasks completed with those who can help.</p>
 
 <button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>
@@ -17,7 +16,7 @@
   <form class="modal-content animate" action="/login" method="post">
     <div class="imgcontainer">
       <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
-      <img src="/static/uwalogo.jpg" alt="UWA Logo" class="Logo">
+      <img src="/static/logo.png" alt="UWA Logo" class="Logo">
     </div>
 
     <div class="container">
@@ -33,12 +32,14 @@
       </label>
     </div>
 
-    <div class="container" style="background-color:#f1f1f1">
+    <div class="container " style="background-color:#f1f1f1">
       <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
       <span class="psw">Forgot <a href="#">password?</a></span>
     </div>
   </form>
 </div>
+
+<p>Don't have an account? <a href="/signup">Sign Up</a></p>
 
 <script src="{{ url_for('static', filename='script.js') }}"></script>
 
