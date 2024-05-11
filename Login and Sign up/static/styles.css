@@ -1,5 +1,27 @@
 /* CSS styles for the modal */
-body {font-family: Arial, Helvetica, sans-serif;}
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+.container {
+  width: 80%; /* Set the width of the container */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px; /* Add padding to the container */
+}
+
+/* Other styles for your content */
+h2 {
+  text-align: center;
+  font-size: 50px;
+  color:  #1434A4;/* Center the heading */
+}
+
+p {
+  text-align: justify;
+  font-size: 20px;
+   /* Justify the text */
+}
 /* Full-width input fields */
 input[type=text], input[type=password] {
   width: 100%;
@@ -9,6 +31,7 @@ input[type=text], input[type=password] {
   border: 1px solid #ccc;
   box-sizing: border-box;
 }
+
 /* Set a style for all buttons */
 button {
   background-color: #6495ED;
@@ -19,36 +42,44 @@ button {
   cursor: pointer;
   width: 100%;
 }
+
 button:hover {
   opacity: 0.8;
 }
+
 /* Extra styles for the cancel button */
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
   background-color: #1434A4;
 }
+
 /* Center the image and position the close button */
 .imgcontainer {
   text-align: center;
   margin: 24px 0 12px 0;
   position: relative;
 }
+
 img.avatar {
   width: 40%;
   border-radius: 50%;
 }
+
 .container {
   padding: 16px;
 }
+
 span.psw {
   float: right;
   padding-top: 16px;
 }
+
 .Logo {
-    width: 250px; /* Width of logo */
-    height: auto; 
+  width: 250px; /* Width of logo */
+  height: auto; 
 }
+
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -60,9 +91,11 @@ span.psw {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgba(0,0,0,0.4); /* Black with opacity */
   padding-top: 60px;
 }
+
+
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
@@ -70,6 +103,7 @@ span.psw {
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
 }
+
 /* The Close Button (x) */
 .close {
   position: absolute;
@@ -79,31 +113,40 @@ span.psw {
   font-size: 35px;
   font-weight: bold;
 }
+
 .close:hover,
 .close:focus {
   color: red;
   cursor: pointer;
 }
+
+
+
+
 /* Add Zoom Animation */
 .animate {
   -webkit-animation: animatezoom 0.6s;
-  animation: animatezoom 0.6s
+  animation: animatezoom 0.6s;
 }
+
 @-webkit-keyframes animatezoom {
   from {-webkit-transform: scale(0)} 
   to {-webkit-transform: scale(1)}
 }
+
 @keyframes animatezoom {
   from {transform: scale(0)} 
   to {transform: scale(1)}
 }
+
 /* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
+@media screen and (max-width: 600px) {
   span.psw {
-     display: block;
-     float: none;
+      display: block;
+      float: none;
   }
+
   .cancelbtn {
-     width: 100%;
+      width: 100%;
   }
 }
