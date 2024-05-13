@@ -6,14 +6,13 @@ import hashlib
 app = Flask(__name__)
 
 
-
 def get_db_connection():
     conn = sqlite3.connect('../backend_db/app.db')  
     return conn
 
 @app.route('/')
 def home():
-    return render_template('login.html')
+    return render_template('index.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -48,6 +47,17 @@ def signup():
         return redirect(url_for('login'))  # Assume there's a 'login' view to redirect to
     return render_template('signup.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
 
 
 
@@ -67,7 +77,6 @@ def login():
             return "Logged in successfully!"  # This would be the place to set up session management in a real app
         else:
             return "Login failed, check your username and password."
-
     return render_template('login.html')
 
 if __name__ == '__main__':
