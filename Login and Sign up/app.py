@@ -3,7 +3,7 @@ from flask import Flask, request, redirect, render_template, url_for
 import sqlite3
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 
 
 def get_db_connection():
@@ -78,6 +78,9 @@ def login():
         else:
             return "Login failed, check your username and password."
     return render_template('login.html')
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
