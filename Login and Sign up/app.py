@@ -3,11 +3,30 @@ from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../backend_db/instance/app.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'your_secret_key'  # Used for session management
 
+db = SQLAlchemy(app)
 
-def get_db_connection():
-    conn = sqlite3.connect('../backend_db/app.db')  
-    return conn
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), unique=True, nullable=False)
+    password = db.Column(db.String(128), nullable=False)  # Adjusted length for bcrypt hash
+    email = db.Column(db.String(100), unique=True, nullable=False)
+    first_name = db.Column(db.String(50), nullable=False)
+    last_name = db.Column(db.String(50), nullable=False)
+    gender = db.Column(db.String(10))
+    birthday = db.Column(db.String(10))
+    phone = db.Column(db.String(15))
+
+def hash_password(password):
+    # Hashes the password and returns a UTF-8 string of the hash
+    return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode('utf-8')
+
+def check_password(hashed_password, user_password):
+    # Checks if the hashed password matches the user's password
+    return bcrypt.checkpw(user_password.encode(), hashed_password.encode())
 
 @app.route('/')
 def home():
@@ -62,25 +81,13 @@ def login():
             return redirect(url_for('faq'))
     return render_template('login.html')
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
 
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = hashlib.sha256(request.form['password'].encode()).hexdigest()
-
-        conn = sqlite3.connect('../backend_db/app.db')
-        c = conn.cursor()
-        c.execute("SELECT id FROM users WHERE username=? AND password=?", (username, password))
-        user = c.fetchone()
-        conn.close()
-
-        if user:
-            return "Logged in successfully!"  # This would be the place to set up session management in a real app
-        else:
-            return "Login failed, check your username and password."
-    return render_template('login.html')
+@app.route('/faq')
+def faq():
+    return render_template('faq.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
