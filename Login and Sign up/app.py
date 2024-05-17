@@ -75,10 +75,10 @@ def login():
         if user and check_password(user.password, provided_password):
             session['user_id'] = user.id
             flash("Logged in successfully!")
-            return redirect(url_for('about'))
+            return redirect(url_for('dashboard'))
         else:
             flash('Invalid username or password.')
-            return redirect(url_for('faq'))
+            return redirect(url_for('home'))
     return render_template('login.html')
 
 @app.route('/about')
@@ -88,6 +88,10 @@ def about():
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
+
+@app.route('/home')
+def dashboard():
+    return render_template('home.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
