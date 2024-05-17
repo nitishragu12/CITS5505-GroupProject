@@ -9,33 +9,78 @@
 <body>
     <div class="container">
         <h1>Leave a Review</h1>
-        <form action="#" method="post">
+        <form id="reviewForm" action="/review" method="post">
             <div class="form-group">
                 <label for="person">Select Person:</label>
-                <select id="person" name="person">
-                    <option value="john">John Doe</option>
-                    <option value="jane">Jane Smith</option>
-                    <option value="alex">Alex Johnson</option>
+                <select id="person" name="person" required>
+                    <option value="" disabled selected>Select a person</option>
+                    <!-- Options will be populated by JavaScript -->
                 </select>
+            </div>
+            <div class="form-group">
+                <label for="averageRating">Average Rating:</label>
+                <span id="averageRating">N/A</span>
             </div>
             <div class="form-group">
                 <label for="rating">Rating:</label>
                 <div class="stars">
-                    <div class="star" onclick="gfg(1)">&#9733;</div>
-                    <div class="star" onclick="gfg(2)">&#9733;</div>
-                    <div class="star" onclick="gfg(3)">&#9733;</div>
-                    <div class="star" onclick="gfg(4)">&#9733;</div>
-                    <div class="star" onclick="gfg(5)">&#9733;</div>
+                    <div class="star" data-value="1">&#9733;</div>
+                    <div class="star" data-value="2">&#9733;</div>
+                    <div class="star" data-value="3">&#9733;</div>
+                    <div class="star" data-value="4">&#9733;</div>
+                    <div class="star" data-value="5">&#9733;</div>
                 </div>
-                
+                <input type="hidden" id="rating" name="rating" required>
             </div>
             <div class="form-group">
                 <label for="feedback">Feedback:</label>
-                <textarea id="feedback" name="feedback" rows="4"></textarea>
+                <textarea id="feedback" name="feedback" rows="4" required></textarea>
             </div>
             <button type="submit">Submit Review</button>
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/api/users')
+                .then(response => response.json())
+                .then(data => {
+                    const personSelect = document.getElementById('person');
+                    data.forEach(user => {
+                        const option = document.createElement('option');
+                        option.value = user.id;
+                        option.textContent = user.name;
+                        personSelect.appendChild(option);
+                    });
+
+                    personSelect.addEventListener('change', function() {
+                        const userId = this.value;
+                        fetch(`/api/users/${userId}/average_rating`)
+                            .then(response => response.json())
+                            .then(data => {
+                                if (data.average_rating !== undefined) {
+                                    document.getElementById('averageRating').textContent = data.average_rating.toFixed(2);
+                                } else {
+                                    document.getElementById('averageRating').textContent = "N/A";
+                                }
+                            })
+                            .catch(error => console.error('Error fetching average rating:', error));
+                    });
+                })
+                .catch(error => console.error('Error fetching users:', error));
+            
+            const stars = document.querySelectorAll('.star');
+            stars.forEach(star => {
+                star.addEventListener('click', () => {
+                    const rating = star.getAttribute('data-value');
+                    document.getElementById('rating').value = rating;
+                    stars.forEach(s => s.classList.remove('selected'));
+                    for (let i = 0; i < rating; i++) {
+                        stars[i].classList.add('selected');
+                    }
+                });
+            });
+        });
+    </script>
     <script src="../static/review.js"></script>
 </body>
 </html>
