@@ -1,10 +1,8 @@
-from flask import Flask, request, redirect, render_template, url_for
+from flask import Flask, request, redirect, render_template, url_for, session, flash
+from flask_sqlalchemy import SQLAlchemy
+import bcrypt
 
-import sqlite3
-import hashlib
-
-app = Flask(__name__, static_url_path='/static')
-
+app = Flask(__name__)
 
 
 def get_db_connection():
@@ -19,46 +17,51 @@ def home():
 def signup():
     if request.method == 'POST':
         username = request.form.get('username')
-        password = hashlib.sha256(request.form['password'].encode()).hexdigest()
+        password = hash_password(request.form.get('password'))
+        email = request.form.get('email')
         first_name = request.form.get('first_name')
         last_name = request.form.get('last_name')
-        email = request.form.get('email')
         gender = request.form.get('gender')
         birthday = request.form.get('birthday')
         phone = request.form.get('phone')
 
-        # Check all required fields are filled
         if not all([username, password, email, first_name, last_name]):
-            return "Please fill in all required fields", 400
+            flash("Please fill in all required fields")
+            return redirect(url_for('signup'))
 
-        conn = get_db_connection()
-        cursor = conn.cursor()
+        new_user = User(username=username, password=password, email=email,
+                        first_name=first_name, last_name=last_name, gender=gender,
+                        birthday=birthday, phone=phone)
+
+        db.session.add(new_user)
         try:
-            cursor.execute("""
-                INSERT INTO users (username, password, email, first_name, last_name, gender, birthday, phone)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                           (username, password, email, first_name, last_name, gender, birthday, phone))
-            conn.commit()
-        except sqlite3.IntegrityError as e:
-            conn.rollback()
-            return f"Error in database operation: {e}", 400
-        finally:
-            conn.close()
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error in database operation: {e}")
+            return redirect(url_for('signup'))
 
-        return redirect(url_for('login'))  # Assume there's a 'login' view to redirect to
+        flash("Signup successful. Please login.")
+        return redirect(url_for('login'))
     return render_template('signup.html')
 
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        provided_password = request.form['password']
 
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
+        user = User.query.filter_by(username=username).first()
 
-@app.route('/faq')
-def faq():
-    return render_template('faq.html')
+        if user and check_password(user.password, provided_password):
+            session['user_id'] = user.id
+            flash("Logged in successfully!")
+            return redirect(url_for('about'))
+        else:
+            flash('Invalid username or password.')
+            return redirect(url_for('faq'))
+    return render_template('login.html')
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

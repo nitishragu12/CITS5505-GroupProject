@@ -18,6 +18,104 @@
   
 }
 
+.modal .imgcontainer img {
+  width: 180px; /* Adjust this value to set the desired width */
+  height: auto; /* Maintains aspect ratio */
+  display: block; /* Ensures it's centered if necessary */
+  margin: 0 auto; /* Centers the image horizontally within its container */
+}
+
+/* Fullscreen modal overlay */
+.modal {
+  display: flex;
+  align-items: center; /* Center vertically */
+  justify-content: center; /* Center horizontally */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Dimmed background */
+  z-index: 1050; /* High z-index to ensure it is on top */
+}
+
+/* Modal dialog adjustments */
+.modal-dialog {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content; /* Adjust width to fit the content or use a specific width */
+  max-width: 600px; /* Maximum width constraint */
+  margin: auto; /* Helps in automatic alignment */
+  transition: transform 0.3s ease-out; /* Smooth transition for modal appearance */
+}
+
+/* Modal content specific styles */
+.modal-content {
+  padding: 20px; /* Padding inside the modal content */
+  background: white; /* Background color */
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+  position: relative; /* Positioning relative for absolute positioned children */
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+form {
+  width: 100%;
+}
+
+form .container {
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  width: 100%; /* Full width to align input fields */
+  margin-bottom: 10px; /* Space between form rows */
+}
+
+.form-checkbox, .form-links {
+  align-self: center; /* Center these elements */
+  margin-top: 5px; /* Small top margin for spacing */
+}
+
+.login-buttons {
+  width: 100px; /* Full width for better touch interaction */
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px; 
+  display: block; /* Block level for full width */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#login-button {
+  background-color: #0d6efd; /* Optional: Style button with a color */
+  color: white; /* Text color for visibility */
+}
+
+input[type="text"], input[type="password"] {
+  width: 100%; /* Full width to fill the container */
+  padding: 10px;
+  margin-top: 5px; /* Space between label and input field */
+  margin-bottom: 15px; /* Add more space below the password field */
+}
+
+/* Close button styles */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 25px;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #777; /* Color change on hover */
+}
+
+
+
 *,
 *::before,
 *::after {
@@ -346,15 +444,45 @@ label {
   list-style: none;
 }
 
-.nav-link {
+.nav-link, .btn-link {
   display: block;
-  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
-  font-size: var(--bs-nav-link-font-size);
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
   font-weight: var(--bs-nav-link-font-weight);
-  color: var(--bs-nav-link-color);
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+  background-color: transparent;
+  border: none;
 }
+
+.nav-link:hover, .btn-link:hover {
+  color: var(--bs-link-hover-color);  /* Slight color change on hover */
+  text-decoration: none;  /* No underline on hover */
+}
+
+/* Apply button styling that doesn't look like a button */
+.nav-item .btn-link {
+  color: #ffffff;  /* White color for visibility */
+  background-color: transparent;  /* Maintaining background transparency */
+  border: none;  /* Removing border */
+  padding: 0.5rem 1rem;  /* Consistent padding with other links */
+  text-align: center;  /* Centering text */
+  font-weight: normal;  /* Normal font weight */
+  display: inline-block;  /* Inline block for proper alignment */
+  transition: color 0.3s;  /* Smooth transition for hover effects */
+  outline: none;  /* Removing outline to match style of links */
+  text-decoration: none;
+}
+
+
+/* Hover effect for the button to match other navigation links */
+.nav-item .btn-link:hover {
+  color: #cccccc;  /* Light grey color on hover for distinction */
+  background-color: transparent;  /* Ensuring background remains transparent */
+  text-decoration: none;  /* No underline on hover */
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav-link {
     transition: none;
