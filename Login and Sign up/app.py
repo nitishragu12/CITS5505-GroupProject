@@ -3,7 +3,8 @@ from flask import Flask, request, redirect, render_template, url_for
 import sqlite3
 import hashlib
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
+
 
 
 def get_db_connection():
@@ -58,7 +59,6 @@ def contact():
 @app.route('/faq')
 def faq():
     return render_template('faq.html')
-
 
 
 @app.route('/login', methods=['GET', 'POST'])
