@@ -13,9 +13,7 @@
             <div class="form-group">
                 <label for="person">Select Person:</label>
                 <select id="person" name="person">
-                    <option value="john">John Doe</option>
-                    <option value="jane">Jane Smith</option>
-                    <option value="alex">Alex Johnson</option>
+                    <!-- Options will be populated by JavaScript -->
                 </select>
             </div>
             <div class="form-group">
@@ -27,7 +25,6 @@
                     <div class="star" onclick="gfg(4)">&#9733;</div>
                     <div class="star" onclick="gfg(5)">&#9733;</div>
                 </div>
-                
             </div>
             <div class="form-group">
                 <label for="feedback">Feedback:</label>
@@ -36,6 +33,22 @@
             <button type="submit">Submit Review</button>
         </form>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch('/api/users')
+                .then(response => response.json())
+                .then(data => {
+                    const personSelect = document.getElementById('person');
+                    data.forEach(user => {
+                        const option = document.createElement('option');
+                        option.value = user.name.toLowerCase().replace(' ', '');
+                        option.textContent = user.name;
+                        personSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching users:', error));
+        });
+    </script>
     <script src="../static/review.js"></script>
 </body>
 </html>

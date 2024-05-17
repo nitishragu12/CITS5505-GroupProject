@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, url_for, session, flash
+from flask import Flask, request, redirect, render_template, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
@@ -21,11 +21,9 @@ class User(db.Model):
     phone = db.Column(db.String(15))
 
 def hash_password(password):
-    # Hashes the password and returns a UTF-8 string of the hash
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode('utf-8')
 
 def check_password(hashed_password, user_password):
-    # Checks if the hashed password matches the user's password
     return bcrypt.checkpw(user_password.encode(), hashed_password.encode())
 
 @app.route('/')
@@ -104,6 +102,12 @@ def leaderboard():
 @app.route('/back2Home')
 def back2Home():
     return render_template('index.html')
+
+@app.route('/api/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    users_list = [{"id": user.id, "name": f"{user.first_name} {user.last_name}"} for user in users]
+    return jsonify(users_list)
 
 if __name__ == '__main__':
     app.run(debug=True)
