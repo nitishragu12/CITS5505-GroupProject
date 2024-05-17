@@ -93,5 +93,17 @@ def faq():
 def dashboard():
     return render_template('home.html')
 
+@app.route('/review')
+def review():
+    return render_template('review.html')
+
+@app.route('/leaderboard')
+def leaderboard():
+    return render_template('leaderboard.html')
+
+@app.route('/back2Home')
+def back2Home():
+    return render_template('index.html')
+
 if __name__ == '__main__':
     app.run(debug=True)

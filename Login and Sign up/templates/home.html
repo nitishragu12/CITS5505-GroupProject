@@ -11,10 +11,11 @@
 <body>
    <div class="navbar">
     <div class="navbar-left">
-        <img src="logo.png" alt="Logo" class="logo">
-        <a href="#home" class="active">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <img src="{{ url_for('static', filename='logo_movemate.jpg') }}" alt="Logo" class="logo">
+        
+        <a href="{{ url_for('back2Home') }}">Home</a>
+        <a href="{{ url_for('review') }}">Review</a>
+        <a href="{{ url_for('leaderboard') }}" class="active">Leaderboard</a>
         <div class="search-bar">
             <input type="text" placeholder="Search...">
             <button class="search-button">Search</button>
@@ -24,7 +25,7 @@
         <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create Post</button>
         
         <div class="user-profile">
-            <img src="profile.jpg" alt="Profile Picture" class="profile-picture">
+            <img src ="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
             <span class="username">John</span>
             <button class="logout-button">Logout</button>
         </div>
