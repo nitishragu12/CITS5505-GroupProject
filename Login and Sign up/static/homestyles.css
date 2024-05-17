@@ -360,63 +360,24 @@ button[type="submit"]:hover {
 .post-title {
     font-size: 24px; 
 }
-.comment-content {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    margin-top: 10px;
-    padding-left: 20px; /* Indent comment */
-}
-
-.comment-icon {
-    margin-right: 10px;
-}
-
-.submitCommentBtn {
-    padding: 10px 20px;
-    background-color: #007bff; /* Blue color */
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-.submitCommentB:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
-}
-
-/* Branch-like styling */
-.comment::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 10px; /* Adjust indentation */
-    width: 1px;
-    height: 100%;
-    background-color: #ccc; /* Gray color */
-}
-
-.comment:last-child::before {
-    display: none; /* Hide branch for last comment */
-}
-
 .comment {
-    margin-top: 10px;
-}
-
-.comment input[type="text"] {
-    width: 100%;
     padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    border-bottom: 1px solid #ddd;
 }
 
+.comment p {
+    margin: 5px 0;
+}
 
+.toggleCommentsBtn {
+    background: none;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+}
 
-.comment-button:hover {
-    background-color: #0056b3;
+.toggleCommentsBtn:hover {
+    text-decoration: underline;
 }
 
 /* Media queries for responsiveness */
@@ -445,17 +406,10 @@ button[type="submit"]:hover {
     .navbar-right {
         text-align: center;
     }
-
-    .notification-button, .search-bar button {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .search-bar {
-        margin-left: 0;
-    }
-
-    .search-bar input[type="text"] {
-        width: 100%;
-    }
 }
+/* Style for the <th> element */
+h1.posts-header {
+    margin-top: 20px; /* Adjust the top margin as needed */
+    font-weight: bold; /* Make the font bold */
+    font-size: 24px; /* Set the font size to 24px, adjust as needed */
+  }

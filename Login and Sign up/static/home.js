@@ -13,12 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
         postModal.style.display = 'none';
     });
 
-    function createComment(content, depth) {
+    function createComment(content, user) {
         const comment = document.createElement('div');
         comment.className = 'comment';
-        comment.style.marginLeft = `${depth * 15}px`; // Indent based on depth
         comment.innerHTML = `
-            <p>${content}</p>
+            <p><strong>${user}:</strong> ${content}</p>
         `;
         return comment;
     }
@@ -27,15 +26,19 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         const title = document.getElementById('post-title').value;
         const content = document.getElementById('post-content').value;
+        const user = 'John'; // Replace this with dynamic user data if available
         if (title.trim() !== '' && content.trim() !== '') {
             const post = document.createElement('div');
             post.className = 'post';
             post.innerHTML = `
                 <h3>${title}</h3>
                 <p>${content}</p>
-                <div class="comments"></div>
-                <textarea class="comment-content" placeholder="Write your comment..."></textarea><br>
-                <button class="submitCommentBtn">Comment</button>
+                <p><strong>${user}</strong></p> <!-- Include username here -->
+                <button class="toggleCommentsBtn"><i class="fas fa-comments"></i> Comments</button>
+                <div class="comments" style="display: none;">
+                    <textarea class="comment-content" placeholder="Write your comment..."></textarea><br>
+                    <button class="submitCommentBtn">Comment</button>
+                </div>
             `;
             postsList.appendChild(post);
             postModal.style.display = 'none';
@@ -43,14 +46,17 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     postsList.addEventListener('click', function(event) {
-        if (event.target.classList.contains('submitCommentBtn')) {
-            const commentContent = event.target.parentElement.querySelector('.comment-content');
+        if (event.target.classList.contains('toggleCommentsBtn')) {
+            const commentsContainer = event.target.nextElementSibling;
+            commentsContainer.style.display = commentsContainer.style.display === 'none' ? 'block' : 'none';
+        } else if (event.target.classList.contains('submitCommentBtn')) {
+            const commentContent = event.target.previousElementSibling;
             const content = commentContent.value;
+            const user = 'John'; // Replace this with dynamic user data if available
             if (content.trim() !== '') {
-                const comment = createComment(content, 1); // Depth 1 for comments
-                const post = event.target.parentElement;
-                const commentsContainer = post.querySelector('.comments');
-                commentsContainer.appendChild(comment);
+                const comment = createComment(content, user);
+                const commentsContainer = event.target.parentElement;
+                commentsContainer.insertBefore(comment, commentContent);
                 commentContent.value = '';
             }
         }
