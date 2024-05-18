@@ -20,12 +20,8 @@ class User(db.Model):
     birthday = db.Column(db.String(10))
     phone = db.Column(db.String(15))
     reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
-<<<<<<< HEAD
-    
-=======
     posts = db.relationship('Post', back_populates='user', cascade="all, delete-orphan")
     comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
->>>>>>> main
 
     def get_average_rating(self):
         if not self.reviews:
@@ -231,6 +227,14 @@ def handle_comments(post_id):
     comments = Comment.query.filter_by(post_id=post_id).all()
     comments_list = [{"content": comment.content, "username": comment.user.username} for comment in comments]
     return jsonify(comments_list)
+
+@app.route('/api/leaderboard', methods=['GET'])
+def leaderboard_data():
+    users = User.query.all()
+    leaderboard = [{"id": user.id, "name": f"{user.first_name} {user.last_name}", "average_rating": user.get_average_rating()} for user in users]
+    leaderboard.sort(key=lambda x: x['average_rating'], reverse=True)
+    return jsonify(leaderboard)
+
 
 @app.route('/profile')
 def profile():
