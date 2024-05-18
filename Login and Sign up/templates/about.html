@@ -32,6 +32,36 @@
         </div>
     </nav>
 
+    <!-- Login Modal -->
+    <div id="id01" class="modal" style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Close button at the top -->
+                <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Window">&times;</span>
+                <div class="imgcontainer">
+                    <img src="/static/logo_movemate.jpg" alt="Logo" class="Logo">
+                </div>
+                <!-- Form tag added with method and action attributes -->
+                <form method="POST" action="{{ url_for('login') }}">
+                    <div class="container">
+                        <label for="uname"><b>Username</b></label>
+                        <input type="text" placeholder="Enter Username" name="username" required>
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="password" required>
+                        <button class="login-buttons" type="submit">Login</button>
+                        <label>
+                            <input type="checkbox" checked="checked" name="remember"> Remember me
+                        </label>
+                    </div>
+                    <div class="container" style="background-color:#f1f1f1">
+                        <button class="login-buttons" type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                        <span class="psw"><a href="{{ url_for('signup') }}">Sign Up</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- Header for About Page-->
     <header class="bg-dark py-5">
         <div class="container px-5">

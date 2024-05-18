@@ -1,31 +1,43 @@
-from flask import Flask, request, redirect, render_template, url_for, session, flash
+from flask import Flask, request, redirect, render_template, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../backend_db/instance/app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.secret_key = 'your_secret_key'  # Used for session management
+app.secret_key = 'your_secret_key'
 
 db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), unique=True, nullable=False)
-    password = db.Column(db.String(128), nullable=False)  # Adjusted length for bcrypt hash
+    password = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     first_name = db.Column(db.String(50), nullable=False)
     last_name = db.Column(db.String(50), nullable=False)
     gender = db.Column(db.String(10))
     birthday = db.Column(db.String(10))
     phone = db.Column(db.String(15))
+    reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
+
+    def get_average_rating(self):
+        if not self.reviews:
+            return 0
+        total_rating = sum(review.rating for review in self.reviews)
+        return total_rating / len(self.reviews)
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    feedback = db.Column(db.String(500))
+    user = db.relationship('User', back_populates='reviews')
 
 def hash_password(password):
-    # Hashes the password and returns a UTF-8 string of the hash
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode('utf-8')
 
 def check_password(hashed_password, user_password):
-    # Checks if the hashed password matches the user's password
     return bcrypt.checkpw(user_password.encode(), hashed_password.encode())
 
 @app.route('/')
@@ -93,8 +105,29 @@ def faq():
 def dashboard():
     return render_template('home.html')
 
-@app.route('/review')
+@app.route('/review', methods=['GET', 'POST'])
 def review():
+    if request.method == 'POST':
+        user_id = request.form.get('person')
+        rating = request.form.get('rating')
+        feedback = request.form.get('feedback')
+
+        if not all([user_id, rating, feedback]):
+            flash("Please fill in all fields")
+            return redirect(url_for('review'))
+
+        new_review = Review(user_id=user_id, rating=int(rating), feedback=feedback)
+
+        db.session.add(new_review)
+        try:
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            flash(f"Error in database operation: {e}")
+            return redirect(url_for('review'))
+
+        flash("Review submitted successfully.")
+        return redirect(url_for('dashboard'))
     return render_template('review.html')
 
 @app.route('/leaderboard')
@@ -104,6 +137,20 @@ def leaderboard():
 @app.route('/back2Home')
 def back2Home():
     return render_template('index.html')
+
+@app.route('/api/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    users_list = [{"id": user.id, "name": f"{user.first_name} {user.last_name}"} for user in users]
+    return jsonify(users_list)
+
+@app.route('/api/users/<int:user_id>/average_rating', methods=['GET'])
+def get_average_rating(user_id):
+    user = User.query.get(user_id)
+    if user:
+        return jsonify({"user_id": user_id, "average_rating": user.get_average_rating()})
+    else:
+        return jsonify({"error": "User not found"}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)

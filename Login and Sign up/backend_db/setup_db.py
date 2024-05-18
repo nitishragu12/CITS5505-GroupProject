@@ -16,6 +16,20 @@ class User(db.Model):
     gender = db.Column(db.String(10))
     birthday = db.Column(db.String(10))
     phone = db.Column(db.String(15))
+    reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
+
+    def get_average_rating(self):
+        if not self.reviews:
+            return 0
+        total_rating = sum(review.rating for review in self.reviews)
+        return total_rating / len(self.reviews)
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    feedback = db.Column(db.String(500))
+    user = db.relationship('User', back_populates='reviews')
 
 def setup_database():
     with app.app_context():
