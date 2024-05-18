@@ -20,6 +20,7 @@ class User(db.Model):
     birthday = db.Column(db.String(10))
     phone = db.Column(db.String(15))
     reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
+    
 
     def get_average_rating(self):
         if not self.reviews:
