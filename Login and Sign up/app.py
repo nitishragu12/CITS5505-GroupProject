@@ -136,6 +136,10 @@ def leaderboard():
 
 @app.route('/back2Home')
 def back2Home():
+    return render_template('home.html')
+
+@app.route('/logout')
+def logout():
     return render_template('index.html')
 
 @app.route('/api/users', methods=['GET'])
