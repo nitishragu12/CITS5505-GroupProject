@@ -17,6 +17,8 @@ class User(db.Model):
     birthday = db.Column(db.String(10))
     phone = db.Column(db.String(15))
     reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
+    posts = db.relationship('Post', back_populates='user', cascade="all, delete-orphan")
+    comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
 
     def get_average_rating(self):
         if not self.reviews:
@@ -30,6 +32,22 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     feedback = db.Column(db.String(500))
     user = db.relationship('User', back_populates='reviews')
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    user = db.relationship('User', back_populates='posts')
+    comments = db.relationship('Comment', back_populates='post', cascade="all, delete-orphan")
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    user = db.relationship('User', back_populates='comments')
+    post = db.relationship('Post', back_populates='comments')
 
 def setup_database():
     with app.app_context():
