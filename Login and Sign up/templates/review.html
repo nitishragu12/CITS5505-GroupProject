@@ -7,6 +7,23 @@
     <link rel="stylesheet" href="../static/reviewstyle.css">
 </head>
 <body>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
+<div class="navbar">
+    <div class="navbar-left">
+        <img src="{{ url_for('static', filename='logo_movemate.jpg') }}" alt="Logo" class="logo">
+        <a href="{{ url_for('back2Home') }}">Home</a>
+        <a href="{{ url_for('review') }}">Review</a>
+        <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
+    </div>
+    <div class="navbar-right">
+        <div class="user-profile">
+            <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
+            <span class="username">John</span> <!-- Dynamic username -->
+            <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
+        </div>
+    </div>
+</div>
+
     <div class="container">
         <h1>Leave a Review</h1>
         <form action="#" method="post">
