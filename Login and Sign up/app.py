@@ -20,7 +20,12 @@ class User(db.Model):
     birthday = db.Column(db.String(10))
     phone = db.Column(db.String(15))
     reviews = db.relationship('Review', back_populates='user', cascade="all, delete-orphan")
+<<<<<<< HEAD
     
+=======
+    posts = db.relationship('Post', back_populates='user', cascade="all, delete-orphan")
+    comments = db.relationship('Comment', back_populates='user', cascade="all, delete-orphan")
+>>>>>>> main
 
     def get_average_rating(self):
         if not self.reviews:
@@ -34,6 +39,22 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     feedback = db.Column(db.String(500))
     user = db.relationship('User', back_populates='reviews')
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    user = db.relationship('User', back_populates='posts')
+    comments = db.relationship('Comment', back_populates='post', cascade="all, delete-orphan")
+
+class Comment(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    post_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    user = db.relationship('User', back_populates='comments')
+    post = db.relationship('Post', back_populates='comments')
 
 def hash_password(password):
     return bcrypt.hashpw(password.encode(), bcrypt.gensalt()).decode('utf-8')
@@ -87,6 +108,7 @@ def login():
 
         if user and check_password(user.password, provided_password):
             session['user_id'] = user.id
+            session['first_name'] = user.first_name
             flash("Logged in successfully!")
             return redirect(url_for('dashboard'))
         else:
@@ -141,7 +163,9 @@ def back2Home():
 
 @app.route('/logout')
 def logout():
-    return render_template('index.html')
+    session.clear()
+    flash("Logged out successfully.")
+    return redirect(url_for('home'))
 
 @app.route('/api/users', methods=['GET'])
 def get_users():
@@ -156,6 +180,64 @@ def get_average_rating(user_id):
         return jsonify({"user_id": user_id, "average_rating": user.get_average_rating()})
     else:
         return jsonify({"error": "User not found"}), 404
+
+@app.route('/api/posts', methods=['GET', 'POST'])
+def handle_posts():
+    if request.method == 'POST':
+        if 'user_id' not in session:
+            return jsonify({"error": "Unauthorized"}), 401
+        user_id = session['user_id']
+        title = request.json.get('title')
+        content = request.json.get('content')
+
+        if not all([title, content]):
+            return jsonify({"error": "Missing title or content"}), 400
+
+        new_post = Post(user_id=user_id, title=title, content=content)
+
+        db.session.add(new_post)
+        try:
+            db.session.commit()
+            return jsonify({"success": "Post created"}), 201
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"error": f"Error in database operation: {e}"}), 500
+
+    posts = Post.query.all()
+    posts_list = [{"id": post.id, "title": post.title, "content": post.content, "username": post.user.username} for post in posts]
+    return jsonify(posts_list)
+
+@app.route('/api/posts/<int:post_id>/comments', methods=['GET', 'POST'])
+def handle_comments(post_id):
+    if request.method == 'POST':
+        if 'user_id' not in session:
+            return jsonify({"error": "Unauthorized"}), 401
+        user_id = session['user_id']
+        content = request.json.get('content')
+
+        if not content:
+            return jsonify({"error": "Missing content"}), 400
+
+        new_comment = Comment(user_id=user_id, post_id=post_id, content=content)
+
+        db.session.add(new_comment)
+        try:
+            db.session.commit()
+            return jsonify({"success": "Comment added"}), 201
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"error": f"Error in database operation: {e}"}), 500
+
+    comments = Comment.query.filter_by(post_id=post_id).all()
+    comments_list = [{"content": comment.content, "username": comment.user.username} for comment in comments]
+    return jsonify(comments_list)
+
+@app.route('/profile')
+def profile():
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
+    user = User.query.get(session['user_id'])
+    return render_template('profile.html', user=user)
 
 if __name__ == '__main__':
     app.run(debug=True)
