@@ -1,5 +1,6 @@
 from flask import Flask, request, redirect, render_template, url_for, session, flash, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 import bcrypt
 
 app = Flask(__name__)
@@ -8,6 +9,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.secret_key = 'your_secret_key'
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
