@@ -16,27 +16,44 @@ $(document).ready(function() {
             stars += '<i class="far fa-star"></i>';
         }
 
-        console.log(`Generated stars for rating ${rating}: ${stars}`);
         return stars;
     }
 
+    // Function to generate badge based on rank
+    function generateBadge(rank) {
+        if (rank === 1) {
+            return '<img src="' + badgeUrls.gold + '" class="badge" alt="Gold Badge">';
+        } else if (rank === 2) {
+            return '<img src="' + badgeUrls.silver + '" class="badge" alt="Silver Badge">';
+        } else if (rank === 3) {
+            return '<img src="' + badgeUrls.bronze + '" class="badge" alt="Bronze Badge">';
+        } else {
+            return '';
+        }
+    }
+
     // Fetch and generate leaderboard rows dynamically
-    fetch('/api/users')
-        .then(response => response.json())
-        .then(data => {
-            const leaderboardBody = $('#leaderboard-body');
-            leaderboardBody.empty(); // Clear existing rows before appending new ones
-            data.forEach((user, index) => {
-                const rank = index + 1;
-                const stars = generateStars(user.rating);
-                const row = `<div class="leaderboard-row">
-                                <span class="rank">${rank}</span>
-                                <span class="user">${user.name}</span>
-                                <span class="rating">${stars}</span>
-                            </div>`;
-                console.log(`Appending row: ${row}`);
-                leaderboardBody.append(row);
-            });
-        })
-        .catch(error => console.error('Error fetching leaderboard data:', error));
+    function loadLeaderboard() {
+        fetch('/api/leaderboard')
+            .then(response => response.json())
+            .then(data => {
+                const leaderboardBody = $('#leaderboard-body');
+                leaderboardBody.empty(); // Clear existing rows before appending new ones
+                data.forEach((user, index) => {
+                    const rank = index + 1;
+                    const stars = generateStars(user.average_rating);
+                    const badge = generateBadge(rank);
+                    const row = `<div class="leaderboard-row">
+                                    <span class="badge">${badge}</span>
+                                    <span class="rank">${rank}</span>
+                                    <span class="user">${user.name}</span>
+                                    <span class="rating">${stars}</span>
+                                </div>`;
+                    leaderboardBody.append(row);
+                });
+            })
+            .catch(error => console.error('Error fetching leaderboard data:', error));
+    }
+
+    loadLeaderboard();
 });

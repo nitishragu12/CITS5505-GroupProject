@@ -22,13 +22,41 @@ header {
     margin-bottom: 20px;
 }
 
-/* Leaderboard table styles */
+/* leaderboardstyle.css */
+.leaderboard-header, .leaderboard-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.leaderboard-header span, .leaderboard-row span {
+    flex: 1;
+    text-align: center;
+}
+
+.badge img {
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+}
+
+
+ 
 .leaderboard-table {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.leaderboard-row:nth-child(odd) {
+    background-color: #f9f9f9; /* Light color for odd rows */
+}
+
+.leaderboard-row:nth-child(even) {
+    background-color: #e9e9e9; /* Light color for even rows */
+}
+/*
 .leaderboard-header {
     background-color: #333;
     color: #fff;
@@ -59,7 +87,7 @@ header {
 
 .leaderboard-row:last-child {
     border-bottom: none;
-}
+} */
 
 .rank, .user, .rating {
     flex: 1;
@@ -75,4 +103,30 @@ header {
 .fa-star, .fa-star-half-alt, .far.fa-star {
     font-size: 1.2em; /* Adjust star size */
 }
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position the tooltip above the text */
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 
