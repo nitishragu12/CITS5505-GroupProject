@@ -7,11 +7,12 @@
         <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
     </div>
     <div class="navbar-right">
-        <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create Post</button>
+        <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create
+            Post</button>
         <div class="user-profile">
             <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
             <span class="username">John</span> <!-- Dynamic username -->
-           
+
             <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
         </div>
     </div>

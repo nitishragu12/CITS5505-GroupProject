@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Review Form</title>
     <link rel="stylesheet" href="../static/reviewstyle.css">
 </head>
+
 <body>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
     <div class="navbar">
@@ -17,8 +19,10 @@
         </div>
         <div class="navbar-right">
             <div class="user-profile">
-                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
-                <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a> <!-- Dynamic first name -->
+                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture"
+                    class="profile-picture">
+                <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a>
+                <!-- Dynamic first name -->
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
         </div>
@@ -28,15 +32,15 @@
         <h1>Leave a Review</h1>
         <form id="reviewForm" action="/review" method="post">
             <div class="form-group">
-                <label for="person">Select Person:</label>
+                <label class="position" for="person">Select Person:</label>
                 <select id="person" name="person" required>
                     <option value="" disabled selected>Select a person</option>
                     <!-- Options will be populated by JavaScript -->
                 </select>
             </div>
             <div class="form-group">
-                <label for="averageRating">Average Rating:</label>
-                <span id="averageRating">N/A</span>
+                <label class="position" for="averageRating">Average Rating:</label>
+                <span id="rating" id="averageRating">N/A</span>
             </div>
             <div class="form-group">
                 <label for="rating">Rating:</label>
@@ -57,7 +61,7 @@
         </form>
     </div>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             fetch('/api/users')
                 .then(response => response.json())
                 .then(data => {
@@ -69,7 +73,7 @@
                         personSelect.appendChild(option);
                     });
 
-                    personSelect.addEventListener('change', function() {
+                    personSelect.addEventListener('change', function () {
                         const userId = this.value;
                         fetch(`/api/users/${userId}/average_rating`)
                             .then(response => response.json())
@@ -84,7 +88,7 @@
                     });
                 })
                 .catch(error => console.error('Error fetching users:', error));
-            
+
             const stars = document.querySelectorAll('.star');
             stars.forEach(star => {
                 star.addEventListener('click', () => {
@@ -99,5 +103,8 @@
         });
     </script>
     <script src="../static/review.js"></script>
+
 </body>
+
+
 </html>

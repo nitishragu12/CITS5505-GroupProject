@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,6 +10,7 @@
     <!-- Ensure Font Awesome is included for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
+
 <body>
     <div class="navbar">
         <div class="navbar-left">
@@ -19,15 +21,19 @@
         </div>
         <div class="navbar-right">
             <div class="user-profile">
-                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
-                <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a> <!-- Dynamic first name -->
+                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture"
+                    class="profile-picture">
+                <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a>
+                <!-- Dynamic first name -->
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
         </div>
     </div>
     <div class="container">
         <h1 class="posts-header">Posts</h1>
-        <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create Post</button>
+
+        <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create
+            Post</button>
         <div id="post-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -43,30 +49,30 @@
         </div>
         <div id="posts-list"></div>
     </div>
-    
+
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const postModal = document.getElementById("post-modal");
             const createPostButton = document.getElementById("create-post-button");
             const closeButton = document.getElementsByClassName("close")[0];
             const postForm = document.getElementById("post-form");
             const postsList = document.getElementById("posts-list");
 
-            createPostButton.onclick = function() {
+            createPostButton.onclick = function () {
                 postModal.style.display = "block";
             }
 
-            closeButton.onclick = function() {
+            closeButton.onclick = function () {
                 postModal.style.display = "none";
             }
 
-            window.onclick = function(event) {
+            window.onclick = function (event) {
                 if (event.target == postModal) {
                     postModal.style.display = "none";
                 }
             }
 
-            postForm.onsubmit = async function(event) {
+            postForm.onsubmit = async function (event) {
                 event.preventDefault();
                 const title = document.getElementById("post-title").value;
                 const content = document.getElementById("post-content").value;
@@ -124,7 +130,7 @@
                 });
             }
 
-            window.toggleComments = function(postId) {
+            window.toggleComments = function (postId) {
                 const commentsSection = document.getElementById(`comments-section-${postId}`);
                 if (commentsSection.style.display === "none") {
                     commentsSection.style.display = "block";
@@ -133,7 +139,7 @@
                 }
             }
 
-            window.submitComment = async function(event, postId) {
+            window.submitComment = async function (event, postId) {
                 event.preventDefault();
                 const content = document.getElementById(`comment-content-${postId}`).value;
                 const response = await fetch(`/api/posts/${postId}/comments`, {
@@ -152,4 +158,5 @@
         });
     </script>
 </body>
+
 </html>
