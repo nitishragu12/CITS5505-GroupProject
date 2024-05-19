@@ -121,9 +121,9 @@ def login():
             flash("Logged in successfully!", 'success')
             return redirect(url_for('dashboard'))
         else:
-            flash('Invalid username or password.', 'danger')
-            return redirect(url_for('home'))
-    return render_template('login.html')
+            flash('Invalid username or password. Please try again.', 'danger')
+            return redirect(url_for('login'))  # Redirect back to login page with error message
+    return render_template('index.html')
 
 # About route
 @app.route('/about')
