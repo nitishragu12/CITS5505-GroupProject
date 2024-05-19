@@ -18,9 +18,8 @@
         </div>
         <div class="navbar-right">
             <div class="user-profile">
-                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture"
-                    class="profile-picture">
-                <a href="{{ url_for('profile') }}" class="username">{{ session.get('username', 'John') }}</a>
+                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
+                <a href="{{ url_for('profile') }}" class="username">{{ username }}</a>
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
         </div>
@@ -58,7 +57,6 @@
                         <p>{{ user.birthday }}</p>
                     </td>
                 </tr>
-                
             </tbody>
         </table>
     </div>

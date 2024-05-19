@@ -77,7 +77,8 @@ body {
     position: relative;
 }
 
-.username::after {
+.post-username::after,
+.comment-username::after {
     content: attr(data-rating);
     position: absolute;
     bottom: -20px;
@@ -90,7 +91,8 @@ body {
     display: none;
 }
 
-.username:hover::after {
+.post-username:hover::after,
+.comment-username:hover::after {
     display: block;
 }
 
@@ -110,7 +112,7 @@ body {
 
 /* Post styles */
 .post {
-    background-color: #c7cace; /* Darker post background */
+    background-color: #c6c6c7; /* Darker post background */
     border-radius: 18px;
     padding: 20px;
     margin-bottom: 20px;
