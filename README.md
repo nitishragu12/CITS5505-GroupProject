@@ -21,3 +21,5 @@ To start the application:
 6. Ctrl+Click the URL to access our web application.
 
 
+To start unit testing:
+Please refer the references file
