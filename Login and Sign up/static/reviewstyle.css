@@ -57,15 +57,17 @@ textarea {
 }
 
 .star {
-    font-size: 30px;
+    font-size: 2rem;
     color: #ccc;
     cursor: pointer;
     margin: 0 5px;
+    transition: color 0.2s;
 }
 
+.star.selected,
 .star:hover,
 .star.active {
-    color: #FFD700;
+    color: #f39c12;
 }
 
 button {
