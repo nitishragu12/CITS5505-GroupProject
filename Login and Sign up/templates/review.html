@@ -2,48 +2,68 @@
 <html lang="en">
 
 <head>
+    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
     <title>Review Form</title>
+    <!-- Linking the CSS file for styling -->
     <link rel="stylesheet" href="../static/reviewstyle.css">
 </head>
 
 <body>
+    <!-- Importing the navbar CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
+    <!-- Navigation bar -->
     <div class="navbar">
+        <!-- Left side of the navbar -->
         <div class="navbar-left">
+            <!-- Logo -->
             <img src="{{ url_for('static', filename='logo_movemate.jpg') }}" alt="Logo" class="logo">
+            <!-- Navigation links -->
             <a href="{{ url_for('back2Home') }}">Home</a>
             <a href="{{ url_for('review') }}">Review</a>
             <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
         </div>
+        <!-- Right side of the navbar -->
         <div class="navbar-right">
+            <!-- User profile section -->
             <div class="user-profile">
+                <!-- Profile picture -->
                 <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture"
                     class="profile-picture">
+                <!-- User's first name (or default "User") -->
                 <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a>
-                <!-- Dynamic first name -->
+                <!-- Logout button -->
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
         </div>
     </div>
 
     <div class="container">
+        <!-- Title for the review form -->
         <h1>Leave a Review</h1>
+        <!-- Review form -->
         <form id="reviewForm" action="/review" method="post">
             <div class="form-group">
+                <!-- Label for selecting a person -->
                 <label class="position" for="person">Select Person:</label>
+                <!-- Dropdown menu for selecting a person -->
                 <select id="person" name="person" required>
                     <option value="" disabled selected>Select a person</option>
                     <!-- Options will be populated by JavaScript -->
                 </select>
             </div>
             <div class="form-group">
+                <!-- Label for displaying average rating -->
                 <label class="position" for="averageRating">Average Rating:</label>
+                <!-- Span to display average rating -->
                 <span id="averageRating">N/A</span>
             </div>
             <div class="form-group">
+                <!-- Label for rating -->
                 <label for="rating">Rating:</label>
+                <!-- Star rating system -->
                 <div class="stars">
                     <div class="star" data-value="1">&#9733;</div>
                     <div class="star" data-value="2">&#9733;</div>
@@ -51,21 +71,29 @@
                     <div class="star" data-value="4">&#9733;</div>
                     <div class="star" data-value="5">&#9733;</div>
                 </div>
+                <!-- Hidden input field to store the selected rating -->
                 <input type="hidden" id="rating" name="rating" required>
             </div>
             <div class="form-group">
+                <!-- Label for feedback -->
                 <label for="feedback">Feedback:</label>
+                <!-- Textarea for entering feedback -->
                 <textarea id="feedback" name="feedback" rows="4" required></textarea>
             </div>
+            <!-- Submit button for the review form -->
             <button type="submit">Submit Review</button>
         </form>
     </div>
+    <!-- JavaScript code -->
     <script>
+        // Execute JavaScript code once the DOM is fully loaded
         document.addEventListener("DOMContentLoaded", function () {
+            // Fetching user data from the API
             fetch('/api/users')
                 .then(response => response.json())
                 .then(data => {
                     const personSelect = document.getElementById('person');
+                    // Populating the dropdown menu with user options
                     data.forEach(user => {
                         const option = document.createElement('option');
                         option.value = user.id;
@@ -73,8 +101,10 @@
                         personSelect.appendChild(option);
                     });
 
+                    // Event listener for selecting a person
                     personSelect.addEventListener('change', function () {
                         const userId = this.value;
+                        // Fetching the average rating for the selected user
                         fetch(`/api/users/${userId}/average_rating`)
                             .then(response => response.json())
                             .then(data => {
@@ -89,6 +119,7 @@
                 })
                 .catch(error => console.error('Error fetching users:', error));
 
+            // Event listeners for star rating system
             const stars = document.querySelectorAll('.star');
             let rating = 0;
 
@@ -131,6 +162,7 @@
             });
         });
     </script>
+    <!-- Importing additional JavaScript file -->
     <script src="../static/review.js"></script>
 </body>
 

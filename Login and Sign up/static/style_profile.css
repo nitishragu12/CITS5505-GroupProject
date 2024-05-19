@@ -1,25 +1,29 @@
+/* Profile container styles */
 .profile-container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px; /* Maximum width of the profile container */
+    margin: 50px auto; /* Center the profile container horizontally with 50px margin from top */
+    padding: 20px; /* Padding inside the profile container */
+    border: 1px solid #ddd; /* Border around the profile container */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light gray background */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Box shadow for profile container */
 }
 
+/* Heading styles */
 .profile-container h1 {
-    font-size: 2em;
-    margin-bottom: 20px;
-    color: #333;
+    font-size: 2em; /* Font size for headings */
+    margin-bottom: 20px; /* Bottom margin for headings */
+    color: #333; /* Text color */
 }
 
+/* Paragraph styles */
 .profile-container p {
-    font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #555;
+    font-size: 1.2em; /* Font size for paragraphs */
+    margin-bottom: 10px; /* Bottom margin for paragraphs */
+    color: #555; /* Text color */
 }
 
+/* Strong (bold) text styles */
 .profile-container strong {
-    color: #333;
+    color: #333; /* Text color */
 }

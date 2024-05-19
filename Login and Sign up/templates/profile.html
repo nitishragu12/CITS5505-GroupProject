@@ -2,58 +2,82 @@
 <html lang="en">
 
 <head>
+    <!-- Meta tags for character set and viewport -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the page -->
     <title>Profile</title>
+    <!-- Linking the CSS file for styling -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 </head>
 
 <body>
+    <!-- Navigation bar -->
     <div class="navbar">
+        <!-- Left side of the navbar -->
         <div class="navbar-left">
+            <!-- Logo -->
             <img src="{{ url_for('static', filename='logo_movemate.jpg') }}" alt="Logo" class="logo">
+            <!-- Navigation links -->
             <a href="{{ url_for('back2Home') }}">Home</a>
             <a href="{{ url_for('review') }}">Review</a>
             <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
         </div>
+        <!-- Right side of the navbar -->
         <div class="navbar-right">
+            <!-- User profile section -->
             <div class="user-profile">
+                <!-- Profile picture -->
                 <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
+                <!-- User's username -->
                 <a href="{{ url_for('profile') }}" class="username">{{ username }}</a>
+                <!-- Logout button -->
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
         </div>
     </div>
+    <!-- Main content container -->
     <div class="container">
+        <!-- Table to display user information -->
         <table>
             <tbody>
+                <!-- Row for user's name -->
                 <tr>
                     <td>Name :</td>
                     <td data-label="Name">
+                        <!-- Displaying user's first and last name -->
                         <h1>{{ user.first_name }} {{ user.last_name }}</h1>
                     </td>
                 </tr>
+                <!-- Row for user's email -->
                 <tr>
                     <td>Email :</td>
                     <td data-label="Email">
+                        <!-- Displaying user's email address -->
                         <p>{{ user.email }}</p>
                     </td>
                 </tr>
+                <!-- Row for user's username -->
                 <tr>
                     <td>Username :</td>
                     <td data-label="Username">
+                        <!-- Displaying user's username -->
                         <p>{{ user.username }}</p>
                     </td>
                 </tr>
+                <!-- Row for user's phone number -->
                 <tr>
                     <td>Phone :</td>
                     <td data-label="Phone">
+                        <!-- Displaying user's phone number -->
                         <p>{{ user.phone }}</p>
                     </td>
                 </tr>
+                <!-- Row for user's birthday -->
                 <tr>
                     <td>Birthday :</td>
                     <td data-label="Birthday">
+                        <!-- Displaying user's birthday -->
                         <p>{{ user.birthday }}</p>
                     </td>
                 </tr>

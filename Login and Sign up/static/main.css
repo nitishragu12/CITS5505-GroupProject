@@ -112,7 +112,7 @@ body {
 
 /* Post styles */
 .post {
-    background-color: #c6c6c7; /* Darker post background */
+    background-color: #c6c6c7; /* Need to set a darker post background */
     border-radius: 18px;
     padding: 20px;
     margin-bottom: 20px;
@@ -159,7 +159,7 @@ body {
 }
 
 .comment {
-    background-color: #f0f0f0; /* Darker comment background */
+    background-color: #f0f0f0; /* Need to set a darker comment background */
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
@@ -450,3 +450,4 @@ p {
         display: inline-block;
     }
 }
+

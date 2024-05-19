@@ -1,87 +1,97 @@
+/* Reset styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Body styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f4f4f4; /* Light gray background */
 }
 
+/* Container styles */
 .container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid darkslategrey;
+    max-width: 500px; /* Maximum width of the container */
+    margin: 50px auto; /* Center the container horizontally with 50px margin from top */
+    padding: 20px; /* Padding inside the container */
+    background-color: #fff; /* White background */
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Box shadow for container */
+    border: 1px solid darkslategrey; /* Border around container */
 }
 
+/* Heading styles */
 h1 {
-    text-align: center;
+    text-align: center; /* Center align heading */
 }
 
+/* Form group styles */
 .form-group {
-    margin-bottom: 20px;
-    text-align: center;
-    margin-top: 38px;
+    margin-bottom: 20px; /* Bottom margin for form group */
+    text-align: center; /* Center align form elements */
+    margin-top: 38px; /* Top margin for form group */
 }
 
+/* Label styles */
 label {
-    display: block;
-    font-weight: bold;
+    display: block; /* Display labels as block elements */
+    font-weight: bold; /* Bold font weight for labels */
 }
 
+/* Select and textarea styles */
 select,
 textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 20px;
-    text-align: center;
+    width: 100%; /* Full width */
+    padding: 8px; /* Padding for select and textarea */
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px; /* Border radius */
+    box-sizing: border-box; /* Box sizing */
+    margin-top: 20px; /* Top margin */
+    text-align: center; /* Center align text */
 }
 
+/* Star rating and rating input styles */
 .stars,
 #rating {
-    margin-top: 20px;
-    text-align: center;
+    margin-top: 20px; /* Top margin for stars and rating input */
+    text-align: center; /* Center align */
 }
 
+/* Star styles */
 .stars {
-    display: flex;
-    justify-content: center;
+    display: flex; /* Display stars in a row */
+    justify-content: center; /* Center align stars */
 }
 
 .star {
-    font-size: 2rem;
-    color: #ccc;
-    cursor: pointer;
-    margin: 0 5px;
-    transition: color 0.2s;
+    font-size: 2rem; /* Font size for stars */
+    color: #ccc; /* Default color for stars */
+    cursor: pointer; /* Cursor style */
+    margin: 0 5px; /* Margin between stars */
+    transition: color 0.2s; /* Smooth color transition */
 }
 
 .star.selected,
 .star:hover,
 .star.active {
-    color: #f39c12;
+    color: #f39c12; /* Color for selected, hovered, and active stars */
 }
 
+/* Button styles */
 button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    display: block; /* Display buttons as block elements */
+    width: 100%; /* Full width */
+    padding: 10px; /* Padding for buttons */
+    background-color: #007bff; /* Default background color */
+    color: #fff; /* Text color */
+    border: none; /* No border */
+    border-radius: 4px; /* Border radius */
+    cursor: pointer; /* Cursor style */
+    transition: background-color 0.3s; /* Smooth background color transition */
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Background color on hover */
 }
