@@ -8,32 +8,14 @@
     <link rel="stylesheet" href="../static/leaderboardstyle.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="../static/leaderboard.js"></script>
-    <style>
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 120px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 5px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 125%; /* Position the tooltip above the text */
-            left: 50%;
-            margin-left: -60px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
-    </style>
+    <script>
+        const badgeUrls = {
+            gold: "{{ url_for('static', filename='gold.png') }}",
+            silver: "{{ url_for('static', filename='silver.png') }}",
+            bronze: "{{ url_for('static', filename='bronze.png') }}"
+        };
+    </script>
+
 </head>
 <body>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
@@ -53,6 +35,7 @@
         </div>
     </div>
 
+
     <div class="container">
         <header>
             <h1>Leaderboard</h1>
@@ -60,6 +43,7 @@
         <main>
             <div class="leaderboard-table">
                 <div class="leaderboard-header">
+                    <span class="badge">Badge</span>
                     <span class="rank">Rank</span>
                     <span class="user">User</span>
                     <span class="rating">Average Rating</span>
@@ -72,44 +56,6 @@
         <footer>
             <p>&copy; 2024 MoveMate AU</p>
         </footer>
-    </div>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            function generateStars(rating) {
-                const maxStars = 5;
-                let starsHtml = `<div class="tooltip" title="${rating.toFixed(2)}">`;
-                for (let i = 1; i <= maxStars; i++) {
-                    if (i <= rating) {
-                        starsHtml += '<i class="fas fa-star"></i>'; // Filled star
-                    } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
-                        starsHtml += '<i class="fas fa-star-half-alt"></i>'; // Half star
-                    } else {
-                        starsHtml += '<i class="far fa-star"></i>'; // Empty star
-                    }
-                }
-                starsHtml += `<span class="tooltiptext">${rating.toFixed(2)}</span></div>`;
-                return starsHtml;
-            }
-
-            fetch('/api/leaderboard')
-                .then(response => response.json())
-                .then(data => {
-                    const leaderboardBody = document.getElementById('leaderboard-body');
-                    leaderboardBody.innerHTML = '';
-                    data.forEach((user, index) => {
-                        const row = document.createElement('div');
-                        row.className = 'leaderboard-row';
-                        row.innerHTML = `
-                            <span class="rank">${index + 1}</span>
-                            <span class="user">${user.name}</span>
-                            <span class="rating">${generateStars(user.average_rating)}</span>
-                        `;
-                        leaderboardBody.appendChild(row);
-                    });
-                })
-                .catch(error => console.error('Error fetching leaderboard data:', error));
-        });
-    </script>
+    </div>    
 </body>
 </html>

@@ -243,5 +243,9 @@ def profile():
     user = User.query.get(session['user_id'])
     return render_template('profile.html', user=user)
 
+@app.route('/static/<path:filename>')
+def custom_static(filename):
+    return send_from_directory('static', filename, cache_timeout=3600)
+
 if __name__ == '__main__':
     app.run(debug=True)
