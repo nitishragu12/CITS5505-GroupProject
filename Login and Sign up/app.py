@@ -176,7 +176,7 @@ def get_average_rating(user_id):
         return jsonify({"user_id": user_id, "average_rating": user.get_average_rating()})
     else:
         return jsonify({"error": "User not found"}), 404
-
+        
 @app.route('/api/posts', methods=['GET', 'POST'])
 def handle_posts():
     if request.method == 'POST':
@@ -199,8 +199,12 @@ def handle_posts():
             db.session.rollback()
             return jsonify({"error": f"Error in database operation: {e}"}), 500
 
-    posts = Post.query.all()
-    posts_list = [{"id": post.id, "title": post.title, "content": post.content, "username": post.user.username} for post in posts]
+    search_query = request.args.get('search')
+    if search_query:
+        posts = Post.query.filter(Post.title.ilike(f'%{search_query}%')).all()
+    else:
+        posts = Post.query.all()
+    posts_list = [{"id": post.id, "title": post.title, "content": post.content, "username": post.user.username, "user_rating": post.user.get_average_rating()} for post in posts]
     return jsonify(posts_list)
 
 @app.route('/api/posts/<int:post_id>/comments', methods=['GET', 'POST'])
@@ -225,7 +229,7 @@ def handle_comments(post_id):
             return jsonify({"error": f"Error in database operation: {e}"}), 500
 
     comments = Comment.query.filter_by(post_id=post_id).all()
-    comments_list = [{"content": comment.content, "username": comment.user.username} for comment in comments]
+    comments_list = [{"content": comment.content, "username": comment.user.username, "user_rating": comment.user.get_average_rating()} for comment in comments]
     return jsonify(comments_list)
 
 @app.route('/api/leaderboard', methods=['GET'])
@@ -235,13 +239,16 @@ def leaderboard_data():
     leaderboard.sort(key=lambda x: x['average_rating'], reverse=True)
     return jsonify(leaderboard)
 
-
 @app.route('/profile')
 def profile():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     user = User.query.get(session['user_id'])
     return render_template('profile.html', user=user)
+
+@app.route('/static/<path:filename>')
+def custom_static(filename):
+    return send_from_directory('static', filename, cache_timeout=3600)
 
 if __name__ == '__main__':
     app.run(debug=True)
