@@ -22,7 +22,7 @@
         <div class="navbar-right">
             <div class="user-profile">
                 <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
-                <a href="{{ url_for('profile') }}" class="username" data-rating="Avg Rating = 4.5">{{ session.get('first_name', 'User') }}</a>
+                <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a>
                 <!-- Dynamic first name -->
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
@@ -110,7 +110,7 @@
                     postElement.innerHTML = `
                         <h3 class="post-title">${post.title}</h3>
                         <p class="post-content">${post.content}</p>
-                        <p><small><span class="username" data-rating="Avg Rating = ${post.user_rating}">${post.username}</span></small></p>
+                        <p><small><span class="post-username" data-rating="Avg Rating = ${post.user_rating}">${post.username}</span></small></p>
                         <button class="toggle-comments-button" onclick="toggleComments(${post.id})">
                             <i class="fas fa-comments"></i> Comments
                         </button>
@@ -146,7 +146,7 @@
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.className = "comment";
-                    commentElement.innerHTML = `<p>${comment.content}</p><p><small><span class="username" data-rating="Avg Rating = ${comment.user_rating}">${comment.username}</span></small></p>`;
+                    commentElement.innerHTML = `<p>${comment.content}</p><p><small><span class="comment-username" data-rating="Avg Rating = ${comment.user_rating}">${comment.username}</span></small></p>`;
                     commentsList.appendChild(commentElement);
                 });
             }

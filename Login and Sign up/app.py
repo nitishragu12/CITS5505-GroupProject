@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template, url_for, session, flash, jsonify
+from flask import Flask, request, redirect, render_template, url_for, session, flash, jsonify, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 import bcrypt
 
@@ -75,7 +75,7 @@ def signup():
         phone = request.form.get('phone')
 
         if not all([username, password, email, first_name, last_name]):
-            flash("Please fill in all required fields")
+            flash("Please fill in all required fields", 'error')
             return redirect(url_for('signup'))
 
         new_user = User(username=username, password=password, email=email,
@@ -85,14 +85,15 @@ def signup():
         db.session.add(new_user)
         try:
             db.session.commit()
+            flash("Signup successful. Please login.", 'success')
+            return redirect(url_for('home'))
         except Exception as e:
             db.session.rollback()
-            flash(f"Error in database operation: {e}")
+            flash(f"Error in database operation: {e}", 'error')
             return redirect(url_for('signup'))
 
-        flash("Signup successful. Please login.")
-        return redirect(url_for('login'))
     return render_template('signup.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -105,6 +106,7 @@ def login():
         if user and check_password(user.password, provided_password):
             session['user_id'] = user.id
             session['first_name'] = user.first_name
+            session['username'] = user.username  # Store the username in the session
             flash("Logged in successfully!")
             return redirect(url_for('dashboard'))
         else:
@@ -244,7 +246,9 @@ def profile():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     user = User.query.get(session['user_id'])
-    return render_template('profile.html', user=user)
+    username = session.get('username')
+    print(f"Session username: {username}")  # Debug statement
+    return render_template('profile.html', user=user, username=username)
 
 @app.route('/static/<path:filename>')
 def custom_static(filename):
