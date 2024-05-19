@@ -61,18 +61,25 @@ header {
     border-bottom: none;
 }
 
-.rank, .user, .rating {
+.rank,
+.user,
+.rating {
     flex: 1;
     text-align: center;
 }
 
 /* Star styles */
-.fa-star, .fa-star-half-alt {
-    color: #FFD700; /* Star color */
-    margin-right: 0.2em; /* Adjust space between stars */
+.fa-star,
+.fa-star-half-alt {
+    color: #FFD700;
+    /* Star color */
+    margin-right: 0.2em;
+    /* Adjust space between stars */
 }
 
-.fa-star, .fa-star-half-alt, .far.fa-star {
-    font-size: 1.2em; /* Adjust star size */
+.fa-star,
+.fa-star-half-alt,
+.far.fa-star {
+    font-size: 1.2em;
+    /* Adjust star size */
 }
-

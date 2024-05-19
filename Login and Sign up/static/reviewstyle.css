@@ -16,6 +16,7 @@ body {
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid darkslategrey;
 }
 
 h1 {
@@ -24,6 +25,8 @@ h1 {
 
 .form-group {
     margin-bottom: 20px;
+    text-align: center;
+    margin-top: 38px;
 }
 
 label {
@@ -38,6 +41,14 @@ textarea {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.stars,
+#rating {
+    margin-top: 20px;
+    text-align: center;
 }
 
 .stars {

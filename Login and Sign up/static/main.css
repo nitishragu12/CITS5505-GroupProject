@@ -1,5 +1,13 @@
 /* Reset default browser styles */
-body, h1, h2, p, ul, li, button, input, textarea {
+body,
+h1,
+h2,
+p,
+ul,
+li,
+button,
+input,
+textarea {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -18,7 +26,7 @@ body {
 
 /* Navigation bar styles */
 .navbar {
-    background-color: #1434A4;
+    background-color: #212728;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -44,7 +52,8 @@ body {
 }
 
 .navbar a:hover {
-    background-color: #6495ED; /* Lighter blue */
+    background-color: #6495ED;
+    /* Lighter blue */
 }
 
 .navbar-right {
@@ -55,12 +64,17 @@ body {
 /* Modify the modal content styles for the form */
 .modal-content {
     background-color: #fefefe;
-    margin: 5% auto; /* Adjust the margin for positioning */
-    padding: 30px; /* Increase padding for more space */
+    margin: 5% auto;
+    /* Adjust the margin for positioning */
+    padding: 30px;
+    /* Increase padding for more space */
     border: 1px solid #888;
-    width: 80%; /* Adjust the width as needed */
-    max-width: 1000px; /* Set a maximum width */
+    width: 80%;
+    /* Adjust the width as needed */
+    max-width: 1000px;
+    /* Set a maximum width */
 }
+
 /* Modal styles */
 .modal {
     display: none;
@@ -71,7 +85,7 @@ body {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -80,8 +94,10 @@ body {
     padding: 30px;
     border: 1px solid #ccc;
     border-radius: 10px;
-    width: 90%; /* Adjust width as needed */
-    max-width: 800px; /* Max width */
+    width: 90%;
+    /* Adjust width as needed */
+    max-width: 800px;
+    /* Max width */
 }
 
 .close {
@@ -104,6 +120,12 @@ body {
     margin-top: 20px;
 }
 
+.line {
+    background-color: #9b3d3d;
+    height: 2px;
+    margin: 1px;
+}
+
 label {
     display: block;
     margin-bottom: 5px;
@@ -116,13 +138,16 @@ textarea {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px; /* Font size for title and content */
+    font-size: 16px;
+    /* Font size for title and content */
 }
 
 button[type="submit"] {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
+    /* Green */
     color: white;
-    padding: 12px 20px; /* Larger padding */
+    padding: 12px 20px;
+    /* Larger padding */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -131,7 +156,8 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #45a049; /* Darker green */
+    background-color: #45a049;
+    /* Darker green */
 }
 
 /* Add padding between the Create Post button and the title */
@@ -141,21 +167,27 @@ button[type="submit"]:hover {
 
 /* Style the form labels */
 .modal-content label {
-    font-weight: bold; /* Make labels bold */
+    font-weight: bold;
+    /* Make labels bold */
 }
 
 /* Style the form inputs */
 .modal-content input[type="text"],
 .modal-content textarea {
-    width: 100%; /* Full width */
-    padding: 10px; /* Increase padding for larger input box */
-    margin-bottom: 20px; /* Add space between inputs */
-    box-sizing: border-box; /* Include padding and border in width */
+    width: 100%;
+    /* Full width */
+    padding: 10px;
+    /* Increase padding for larger input box */
+    margin-bottom: 20px;
+    /* Add space between inputs */
+    box-sizing: border-box;
+    /* Include padding and border in width */
 }
 
 /* Style the submit button */
 .modal-content button[type="submit"] {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
+    /* Green */
     border: none;
     color: white;
     padding: 10px 20px;
@@ -167,9 +199,9 @@ button[type="submit"]:hover {
 }
 
 .modal-content button[type="submit"]:hover {
-    background-color: #45a049; /* Darker green */
+    background-color: #45a049;
+    /* Darker green */
 }
-
 
 .user-profile {
     display: flex;
@@ -210,7 +242,8 @@ button[type="submit"]:hover {
 .search-bar input[type="text"] {
     padding: 8px;
     margin-right: 5px;
-    width: 200px; /* Adjust the width as needed */
+    width: 200px;
+    /* Adjust the width as needed */
 }
 
 .search-bar button {
@@ -221,143 +254,123 @@ button[type="submit"]:hover {
     cursor: pointer;
 }
 
-/* Modal styles */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
 .create-post-button {
-    background-color: #4CAF50; /* Green */
+    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 10px 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
     margin-right: 10px;
     border-radius: 5px;
+    margin: 22px;
 }
 
 .create-post-button:hover {
-    background-color: #45a049; /* Darker green */
+    background-color: #45a049;
+    /* Darker green */
 }
 
 .logo-plus {
     font-size: 24px;
     margin-right: 5px;
 }
+
 /* Add some space between post and comments */
 .post {
+    background-color: #c6eaec;
+    border-radius: 18px;
+    padding: 40px;
     margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    width: 20%;
+    margin: 17px;
+    display: inline-table;
+    padding: 62px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Style the comment and reply boxes */
-.comment, .reply {
-    margin-left: 15px; /* Indent comments and replies */
-    padding: 10px; /* Add padding inside comments and replies */
-    border: 1px solid #ddd; /* Add border around comments and replies */
-    border-radius: 5px; /* Add rounded corners */
-    background-color: #f9f9f9; /* Light gray background color */
+.comment,
+.reply {
+    margin-left: 15px;
+    /* Indent comments and replies */
+    padding: 10px;
+    /* Add padding inside comments and replies */
+    border: 1px solid #ddd;
+    /* Add border around comments and replies */
+    border-radius: 5px;
+    /* Add rounded corners */
+    background-color: #f9f9f9;
+    /* Light gray background color */
 }
 
 /* Style the reply button */
 .submitReplyBtn {
-    background-color: #007bff; /* Blue color */
+    background-color: #007bff;
+    /* Blue color */
     color: white;
     border: none;
     padding: 5px 10px;
-    margin-top: 10px; /* Add space between reply box and button */
+    margin-top: 10px;
+    /* Add space between reply box and button */
     border-radius: 5px;
     cursor: pointer;
 }
 
 .submitReplyBtn:hover {
-    background-color: #0056b3; /* Darker blue color on hover */
+    background-color: #0056b3;
+    /* Darker blue color on hover */
 }
 
 /* Separate comments and replies with a horizontal line */
 
-.comment::after, .reply::after {
+.comment::after,
+.reply::after {
     content: '';
     position: absolute;
-    left: -15px; /* Adjust based on indent */
-    top: 50%; /* Center the line */
-    width: 10px; /* Line length */
-    height: 1px; /* Line thickness */
-    background-color: #ddd; /* Line color */
+    left: -15px;
+    /* Adjust based on indent */
+    top: 50%;
+    /* Center the line */
+    width: 10px;
+    /* Line length */
+    height: 1px;
+    /* Line thickness */
+    background-color: #ddd;
+    /* Line color */
 }
 
 .comment::after {
-    top: -10px; /* Adjust based on indent */
-}
-
-.post {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    margin-top: 20px;
-    padding: 30px;
-    
-}
-/* Separate posts and comments visually */
-.post {
-    background-color: #b0dcfb; /* Light gray background for posts */
-    border: 1px solid #ccc; /* Gray border around posts */
-    border-radius: 5px; /* Rounded corners for posts */
-    padding: 40px; /* Padding inside posts */
-    margin-bottom: 20px; /* Space between posts */
+    top: -10px;
+    /* Adjust based on indent */
 }
 
 .comment-content {
-    background-color: #ffffffc8; /* White background for comments */
-    border: 1px solid #ccc; /* Gray border around comments */
-    border-radius: 5px; /* Rounded corners for comments */
-    padding: 10px; /* Padding inside comments */
-    margin-bottom: 10px; /* Space between comments */
+    background-color: #ffffffc8;
+    /* White background for comments */
+    border: 1px solid #ccc;
+    /* Gray border around comments */
+    border-radius: 5px;
+    /* Rounded corners for comments */
+    padding: 10px;
+    /* Padding inside comments */
+    margin-bottom: 10px;
+    /* Space between comments */
 }
 
 .post-content {
     color: #333;
-    font-size: 18px; /* Larger font size for content */
+    font-size: 18px;
+    /* Larger font size for content */
     margin-top: 10px;
 }
 
 .post-title {
-    font-size: 24px; 
+    font-size: 24px;
+    margin-top: -38px;
 }
+
 .comment {
     padding: 5px;
     border-bottom: 1px solid #ddd;
@@ -391,7 +404,8 @@ button[type="submit"]:hover {
         text-align: center;
     }
 
-    .navbar-left, .navbar-right {
+    .navbar-left,
+    .navbar-right {
         width: 100%;
         margin-bottom: 10px;
     }
@@ -405,9 +419,71 @@ button[type="submit"]:hover {
         text-align: center;
     }
 }
+
 /* Style for the <th> element */
 h1.posts-header {
-    margin-top: 20px; /* Adjust the top margin as needed */
-    font-weight: bold; /* Make the font bold */
-    font-size: 24px; /* Set the font size to 24px, adjust as needed */
+    margin-top: 20px;
+    /* Adjust the top margin as needed */
+    font-weight: bold;
+    /* Make the font bold */
+    font-size: 24px;
+    /* Set the font size to 24px, adjust as needed */
+    margin: 22px;
+}
+
+/* Table styles */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+table,
+th,
+td {
+    border: 1px solid #ddd;
+}
+
+td {
+    padding: 15px;
+    font-size: 16px;
+}
+
+td:first-child {
+    font-weight: bold;
+    background-color: #f9f9f9;
+    width: 150px;
+}
+
+h1,
+p {
+    margin-bottom: 15px;
+}
+
+/* Responsive table styles */
+@media screen and (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    td {
+        display: block;
+        width: 100%;
+    }
+
+    td:first-child {
+        background-color: transparent;
+        font-weight: normal;
+    }
+
+    td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        width: 120px;
+        display: inline-block;
+    }
 }

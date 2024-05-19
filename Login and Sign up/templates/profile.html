@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 </head>
+
 <body>
     <div class="navbar">
         <div class="navbar-left">
@@ -16,21 +18,55 @@
         </div>
         <div class="navbar-right">
             <div class="user-profile">
-                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
-                <a href="{{ url_for('profile') }}" class="username">{{ session.get('username', 'John') }}</a> <!-- Dynamic username -->
+                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture"
+                    class="profile-picture">
+                <a href="{{ url_for('profile') }}" class="username">{{ session.get('username', 'John') }}</a>
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
         </div>
     </div>
     <div class="container">
-        <div class="profile-container">
-            <h1>{{ user.first_name }} {{ user.last_name }}</h1>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Username:</strong> {{ user.username }}</p>
-            <p><strong>Phone:</strong> {{ user.phone }}</p>
-            <p><strong>Birthday:</strong> {{ user.birthday }}</p>
-            <p><strong>Gender:</strong> {{ user.gender }}</p>
-        </div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Name :</td>
+                    <td data-label="Name">
+                        <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Email :</td>
+                    <td data-label="Email">
+                        <p>{{ user.email }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Username :</td>
+                    <td data-label="Username">
+                        <p>{{ user.username }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Phone :</td>
+                    <td data-label="Phone">
+                        <p>{{ user.phone }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Birthday :</td>
+                    <td data-label="Birthday">
+                        <p>{{ user.birthday }}</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Gender :</td>
+                    <td data-label="Gender">
+                        <p>{{ user.gender }}</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
+
 </html>
