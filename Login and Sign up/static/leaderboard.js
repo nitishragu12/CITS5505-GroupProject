@@ -21,6 +21,7 @@ $(document).ready(function() {
 
     // Function to generate badge based on rank
     function generateBadge(rank) {
+        // Assuming badgeUrls is defined elsewhere in your code
         if (rank === 1) {
             return '<img src="' + badgeUrls.gold + '" class="badge" alt="Gold Badge">';
         } else if (rank === 2) {
@@ -55,5 +56,6 @@ $(document).ready(function() {
             .catch(error => console.error('Error fetching leaderboard data:', error));
     }
 
+    // Call the function to load the leaderboard on document ready
     loadLeaderboard();
 });

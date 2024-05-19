@@ -4,29 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaderboard</title>
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Custom CSS for leaderboard page -->
     <link rel="stylesheet" href="../static/leaderboardstyle.css">
+    <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Custom JS for leaderboard page -->
     <script src="../static/leaderboard.js"></script>
     <script>
+        // URLs for badge images
         const badgeUrls = {
             gold: "{{ url_for('static', filename='gold.png') }}",
             silver: "{{ url_for('static', filename='silver.png') }}",
             bronze: "{{ url_for('static', filename='bronze.png') }}"
         };
     </script>
-
 </head>
 <body>
+    <!-- Navbar with links and user profile -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='navbar.css') }}">
     <div class="navbar">
         <div class="navbar-left">
+            <!-- Logo and navigation links -->
             <img src="{{ url_for('static', filename='logo_movemate.jpg') }}" alt="Logo" class="logo">
             <a href="{{ url_for('back2Home') }}">Home</a>
             <a href="{{ url_for('review') }}">Review</a>
             <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
         </div>
         <div class="navbar-right">
+            <!-- User profile section -->
             <div class="user-profile">
                 <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
                 <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a> 
@@ -35,12 +42,14 @@
         </div>
     </div>
 
-
+    <!-- Main container -->
     <div class="container">
+        <!-- Page header -->
         <header>
             <h1>Leaderboard</h1>
         </header>
         <main>
+            <!-- Leaderboard table -->
             <div class="leaderboard-table">
                 <div class="leaderboard-header">
                     <span class="badge">Badge</span>
@@ -53,6 +62,7 @@
                 </div>
             </div>
         </main>
+        <!-- Footer -->
         <footer>
             <p>&copy; 2024 MoveMate AU</p>
         </footer>

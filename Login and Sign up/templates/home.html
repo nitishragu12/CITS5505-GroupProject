@@ -6,20 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Page</title>
+    <!-- Link to the main CSS file -->
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
     <!-- Ensure Font Awesome is included for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body>
+    <!-- Navigation bar -->
     <div class="navbar">
         <div class="navbar-left">
+            <!-- Logo and navigation links -->
             <img src="{{ url_for('static', filename='logo_movemate.jpg') }}" alt="Logo" class="logo">
             <a href="{{ url_for('back2Home') }}">Home</a>
             <a href="{{ url_for('review') }}">Review</a>
             <a href="{{ url_for('leaderboard') }}">Leaderboard</a>
         </div>
         <div class="navbar-right">
+            <!-- User profile section -->
             <div class="user-profile">
                 <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
                 <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a>
@@ -28,20 +32,28 @@
             </div>
         </div>
     </div>
+
+    <!-- Main content container -->
     <div class="container">
         <h1 class="posts-header">Posts</h1>
 
+        <!-- Search bar -->
         <div class="search-bar">
             <input type="text" id="search-input" placeholder="Search posts by title">
             <button id="search-button" class="search-button">Search</button>
             <button id="clear-button" class="clear-button">&times;</button>
         </div>
 
+        <!-- Button to open the create post modal -->
         <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create Post</button>
+
+        <!-- Modal for creating a post -->
         <div id="post-modal" class="modal">
             <div class="modal-content">
+                <!-- Close button for the modal -->
                 <span class="close">&times;</span>
                 <h2>Create Post</h2>
+                <!-- Form to submit a new post -->
                 <form id="post-form">
                     <label for="post-title">Title:</label><br>
                     <input type="text" id="post-title" name="post-title"><br>
@@ -51,6 +63,8 @@
                 </form>
             </div>
         </div>
+
+        <!-- Container to display posts -->
         <div id="posts-list"></div>
     </div>
 
@@ -65,20 +79,24 @@
             const searchButton = document.getElementById("search-button");
             const clearButton = document.getElementById("clear-button");
 
+            // Show the create post modal
             createPostButton.onclick = function () {
                 postModal.style.display = "block";
             }
 
+            // Hide the create post modal
             closeButton.onclick = function () {
                 postModal.style.display = "none";
             }
 
+            // Hide the modal if clicked outside of it
             window.onclick = function (event) {
                 if (event.target == postModal) {
                     postModal.style.display = "none";
                 }
             }
 
+            // Handle the form submission to create a new post
             postForm.onsubmit = async function (event) {
                 event.preventDefault();
                 const title = document.getElementById("post-title").value;
@@ -96,6 +114,7 @@
                 }
             }
 
+            // Fetch and display posts from the server
             async function fetchPosts(searchQuery = "") {
                 let url = "/api/posts";
                 if (searchQuery) {
@@ -110,7 +129,7 @@
                     postElement.innerHTML = `
                         <h3 class="post-title">${post.title}</h3>
                         <p class="post-content">${post.content}</p>
-                        <p><small><span class="post-username" data-rating="Avg Rating = ${post.user_rating}">${post.username}</span></small></p>
+                        <p><small><span class="post-username" data-rating="user rating: ${post.user_rating}">${post.username}</span></small></p>
                         <button class="toggle-comments-button" onclick="toggleComments(${post.id})">
                             <i class="fas fa-comments"></i> Comments
                         </button>
@@ -128,16 +147,19 @@
                 });
             }
 
+            // Handle search button click
             searchButton.onclick = function () {
                 const searchQuery = searchInput.value;
                 fetchPosts(searchQuery);
             }
 
+            // Handle clear button click
             clearButton.onclick = function () {
                 searchInput.value = "";
                 fetchPosts();
             }
 
+            // Fetch and display comments for a specific post
             async function fetchComments(postId) {
                 const response = await fetch(`/api/posts/${postId}/comments`);
                 const comments = await response.json();
@@ -146,11 +168,12 @@
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.className = "comment";
-                    commentElement.innerHTML = `<p>${comment.content}</p><p><small><span class="comment-username" data-rating="Avg Rating = ${comment.user_rating}">${comment.username}</span></small></p>`;
+                    commentElement.innerHTML = `<p>${comment.content}</p><p><small><span class="comment-username" data-rating="user rating = ${comment.user_rating}">${comment.username}</span></small></p>`;
                     commentsList.appendChild(commentElement);
                 });
             }
 
+            // Toggle the display of comments for a post
             window.toggleComments = function (postId) {
                 const commentsSection = document.getElementById(`comments-section-${postId}`);
                 if (commentsSection.style.display === "none") {
@@ -160,6 +183,7 @@
                 }
             }
 
+            // Handle form submission for adding a comment to a post
             window.submitComment = async function (event, postId) {
                 event.preventDefault();
                 const content = document.getElementById(`comment-content-${postId}`).value;
@@ -175,6 +199,7 @@
                 }
             }
 
+            // Initial fetch of posts
             fetchPosts();
         });
     </script>
