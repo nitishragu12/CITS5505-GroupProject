@@ -23,6 +23,7 @@ header {
 }
 
 /* leaderboardstyle.css */
+/* Styles for the leaderboard header and rows */
 .leaderboard-header, .leaderboard-row {
     display: flex;
     justify-content: space-between;
@@ -30,25 +31,27 @@ header {
     border-bottom: 1px solid #ddd;
 }
 
+/* Styles for spans within the leaderboard header and rows */
 .leaderboard-header span, .leaderboard-row span {
     flex: 1;
     text-align: center;
 }
 
+/* Styles for badge images */
 .badge img {
     width: 60px;
     height: 60px;
     vertical-align: middle;
 }
 
-
- 
+/* Styles for the leaderboard table */
 .leaderboard-table {
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Styles for alternating row colors */
 .leaderboard-row:nth-child(odd) {
     background-color: #f9f9f9; /* Light color for odd rows */
 }
@@ -57,6 +60,7 @@ header {
     background-color: #e9e9e9; /* Light color for even rows */
 }
 
+/* Styles for rank, user, and rating spans */
 .rank,
 .user,
 .rating {
@@ -67,16 +71,12 @@ header {
 /* Star styles */
 .fa-star,
 .fa-star-half-alt {
-    color: #FFD700;
-    /* Star color */
-    margin-right: 0.2em;
-    /* Adjust space between stars */
+    color: #FFD700; /* Star color */
+    margin-right: 0.2em; /* Adjust space between stars */
 }
 
 .fa-star,
 .fa-star-half-alt,
 .far.fa-star {
-    font-size: 1.2em;
-    /* Adjust star size */
+    font-size: 1.2em; /* Adjust star size */
 }
-

@@ -19,9 +19,9 @@
 }
 
 .modal .imgcontainer img {
-  width: 180px; /* Adjust this value to set the desired width */
+  width: 180px; 
   height: auto; /* Maintains aspect ratio */
-  display: block; /* Ensures it's centered if necessary */
+  display: block; /* To ensure it's centered if necessary */
   margin: 0 auto; /* Centers the image horizontally within its container */
 }
 
@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: fit-content; /* Adjust width to fit the content or use a specific width */
+  width: fit-content; 
   max-width: 600px; /* Maximum width constraint */
   margin: auto; /* Helps in automatic alignment */
   transition: transform 0.3s ease-out; /* Smooth transition for modal appearance */
@@ -89,7 +89,7 @@ form .container {
 }
 
 #login-button {
-  background-color: #0d6efd; /* Optional: Style button with a color */
+  background-color: #0d6efd; 
   color: white; /* Text color for visibility */
 }
 
@@ -113,8 +113,6 @@ input[type="text"], input[type="password"] {
 .close:hover {
   color: #777; /* Color change on hover */
 }
-
-
 
 *,
 *::before,
