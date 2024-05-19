@@ -21,9 +21,8 @@
         </div>
         <div class="navbar-right">
             <div class="user-profile">
-                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture"
-                    class="profile-picture">
-                <a href="{{ url_for('profile') }}" class="username">{{ session.get('first_name', 'User') }}</a>
+                <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile Picture" class="profile-picture">
+                <a href="{{ url_for('profile') }}" class="username" data-rating="Avg Rating = 4.5">{{ session.get('first_name', 'User') }}</a>
                 <!-- Dynamic first name -->
                 <a href="{{ url_for('logout') }}" class="logout-button">Logout</a>
             </div>
@@ -32,8 +31,13 @@
     <div class="container">
         <h1 class="posts-header">Posts</h1>
 
-        <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create
-            Post</button>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search posts by title">
+            <button id="search-button" class="search-button">Search</button>
+            <button id="clear-button" class="clear-button">&times;</button>
+        </div>
+
+        <button id="create-post-button" class="create-post-button"><i class="fas fa-plus logo-plus"></i> Create Post</button>
         <div id="post-modal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -57,6 +61,9 @@
             const closeButton = document.getElementsByClassName("close")[0];
             const postForm = document.getElementById("post-form");
             const postsList = document.getElementById("posts-list");
+            const searchInput = document.getElementById("search-input");
+            const searchButton = document.getElementById("search-button");
+            const clearButton = document.getElementById("clear-button");
 
             createPostButton.onclick = function () {
                 postModal.style.display = "block";
@@ -89,8 +96,12 @@
                 }
             }
 
-            async function fetchPosts() {
-                const response = await fetch("/api/posts");
+            async function fetchPosts(searchQuery = "") {
+                let url = "/api/posts";
+                if (searchQuery) {
+                    url += `?search=${encodeURIComponent(searchQuery)}`;
+                }
+                const response = await fetch(url);
                 const posts = await response.json();
                 postsList.innerHTML = "";
                 posts.forEach(post => {
@@ -99,7 +110,7 @@
                     postElement.innerHTML = `
                         <h3 class="post-title">${post.title}</h3>
                         <p class="post-content">${post.content}</p>
-                        <p><small>by ${post.username}</small></p>
+                        <p><small><span class="username" data-rating="Avg Rating = ${post.user_rating}">${post.username}</span></small></p>
                         <button class="toggle-comments-button" onclick="toggleComments(${post.id})">
                             <i class="fas fa-comments"></i> Comments
                         </button>
@@ -117,6 +128,16 @@
                 });
             }
 
+            searchButton.onclick = function () {
+                const searchQuery = searchInput.value;
+                fetchPosts(searchQuery);
+            }
+
+            clearButton.onclick = function () {
+                searchInput.value = "";
+                fetchPosts();
+            }
+
             async function fetchComments(postId) {
                 const response = await fetch(`/api/posts/${postId}/comments`);
                 const comments = await response.json();
@@ -125,7 +146,7 @@
                 comments.forEach(comment => {
                     const commentElement = document.createElement("div");
                     commentElement.className = "comment";
-                    commentElement.innerHTML = `<p>${comment.content}</p><p><small>by ${comment.username}</small></p>`;
+                    commentElement.innerHTML = `<p>${comment.content}</p><p><small><span class="username" data-rating="Avg Rating = ${comment.user_rating}">${comment.username}</span></small></p>`;
                     commentsList.appendChild(commentElement);
                 });
             }
